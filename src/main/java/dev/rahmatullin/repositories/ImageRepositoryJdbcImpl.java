@@ -2,11 +2,16 @@ package dev.rahmatullin.repositories;
 
 import dev.rahmatullin.models.Image;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 public class ImageRepositoryJdbcImpl implements ImageRepository {
+    private Connection connection;
+    ImageRepositoryJdbcImpl(Connection connection) {
+        this.connection = connection;
+    }
     @Override
     public Optional<Image> findById(Long id) throws SQLException {
         return Optional.empty();

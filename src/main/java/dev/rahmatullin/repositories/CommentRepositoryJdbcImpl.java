@@ -2,11 +2,16 @@ package dev.rahmatullin.repositories;
 
 import dev.rahmatullin.models.Comment;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 public class CommentRepositoryJdbcImpl implements CommentRepository{
+    private Connection connection;
+    CommentRepositoryJdbcImpl(Connection connection) {
+        this.connection = connection;
+    }
     @Override
     public Optional<Comment> findById(Long id) throws SQLException {
         return Optional.empty();

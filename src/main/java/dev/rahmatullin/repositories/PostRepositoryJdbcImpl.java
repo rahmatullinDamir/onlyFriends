@@ -2,11 +2,16 @@ package dev.rahmatullin.repositories;
 
 import dev.rahmatullin.models.Post;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 public class PostRepositoryJdbcImpl implements PostRepository{
+    private Connection connection;
+    PostRepositoryJdbcImpl(Connection connection) {
+        this.connection = connection;
+    }
     @Override
     public Optional<Post> findById(Long id) throws SQLException {
         return Optional.empty();

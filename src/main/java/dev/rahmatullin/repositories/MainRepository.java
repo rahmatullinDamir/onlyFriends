@@ -13,6 +13,9 @@ public class MainRepository {
 
         UserRepository userRepository = new UserRepositoryJdbcImpl(connection);
 
+        System.out.println(userRepository.findById(1L).get());
+
+
 
     }
 }

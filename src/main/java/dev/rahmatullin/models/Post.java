@@ -10,6 +10,6 @@ import java.util.Date;
 public class Post {
     private Long id;
     private String text;
-    private User user;
+    private Long userId;
     private Date date;
 }

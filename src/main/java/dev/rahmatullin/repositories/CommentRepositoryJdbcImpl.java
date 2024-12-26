@@ -14,7 +14,7 @@ public class CommentRepositoryJdbcImpl implements CommentRepository {
     private static final String SQL_UPDATE_COMMENT = "UPDATE comment SET text = ?, user_id = ?, date = ? WHERE id = ?";
     private static final String SQL_DELETE_COMMENT = "DELETE FROM comment WHERE id = ?";
 
-    CommentRepositoryJdbcImpl(Connection connection) {
+    public CommentRepositoryJdbcImpl(Connection connection) {
         this.connection = connection;
     }
 

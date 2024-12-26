@@ -17,7 +17,7 @@ public class ImageRepositoryJdbcImpl implements ImageRepository {
     private static final String SQL_UPDATE_IMAGE = "UPDATE image SET name = ?, url = ?, extension = ? WHERE id = ?";
     private static final String SQL_DELETE_IMAGE = "DELETE FROM image WHERE id = ?";
 
-    ImageRepositoryJdbcImpl(Connection connection) {
+    public ImageRepositoryJdbcImpl(Connection connection) {
         this.connection = connection;
     }
 

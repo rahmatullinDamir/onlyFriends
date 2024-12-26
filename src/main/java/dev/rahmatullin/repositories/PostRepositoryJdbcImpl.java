@@ -14,7 +14,7 @@ public class PostRepositoryJdbcImpl implements PostRepository {
     private static final String SQL_UPDATE_POST = "UPDATE post SET text = ?, user_id = ?, date = ? WHERE id = ?";
     private static final String SQL_DELETE_POST = "DELETE FROM post WHERE id = ?";
 
-    PostRepositoryJdbcImpl(Connection connection) {
+    public PostRepositoryJdbcImpl(Connection connection) {
         this.connection = connection;
     }
 

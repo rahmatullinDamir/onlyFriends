@@ -14,7 +14,7 @@ public class LikesRepositoryJdbcImpl implements LikesRepository {
     private static final String SQL_UPDATE_LIKES = "UPDATE likes SET date = ? WHERE id = ?";
     private static final String SQL_DELETE_LIKES = "DELETE FROM likes WHERE id = ?";
 
-    LikesRepositoryJdbcImpl(Connection connection) {
+    public LikesRepositoryJdbcImpl(Connection connection) {
         this.connection = connection;
     }
 

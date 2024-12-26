@@ -17,7 +17,7 @@ public class UserRepositoryJdbcImpl implements UserRepository {
     private static final String SQL_UPDATE_USER_PROFILE = "UPDATE user_profile SET name = ?, surname = ?, age = ?, avatar_image_id = ?, password = ? WHERE id = ?";
     private static final String SQL_DELETE_USER_PROFILE = "DELETE FROM user_profile WHERE id = ?";
 
-    UserRepositoryJdbcImpl(Connection connection) {
+    public UserRepositoryJdbcImpl(Connection connection) {
         this.connection = connection;
     }
     @Override

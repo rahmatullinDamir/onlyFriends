@@ -7,6 +7,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Builder
+@ToString
 public class Post {
     private Long id;
     private String text;

@@ -26,7 +26,6 @@ public class RolesFilter implements Filter {
                 }
                 else {
                     response.sendError(HttpServletResponse.SC_FORBIDDEN);
-
                 }
             }
         }

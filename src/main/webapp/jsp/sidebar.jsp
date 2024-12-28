@@ -19,5 +19,6 @@
                <li><a href="${pageContext.request.contextPath}/admin">Админ-Панель</a></li>
             </c:when>
         </c:choose>
+        <li><a href="${pageContext.request.contextPath}/logout">Выйти</a></li>
     </ul>
 </aside>

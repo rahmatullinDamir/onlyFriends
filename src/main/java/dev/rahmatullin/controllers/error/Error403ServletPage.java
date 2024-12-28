@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/Error403")
-public class Error403Servlet extends HttpServlet {
+public class Error403ServletPage extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            request.getRequestDispatcher("/html/error403.html").forward(request, response);
+            request.getRequestDispatcher("html/error403.html").forward(request, response);
     }
 }

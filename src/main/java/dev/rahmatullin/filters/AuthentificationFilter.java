@@ -24,6 +24,7 @@ public class AuthentificationFilter  implements Filter
             isAutheticated = (Boolean) session.getAttribute("authenticated");
             if (isAutheticated == null) {
                 isAutheticated = false;
+                session.invalidate();
             }
         }
         if ((isAutheticated && !isLoginPage) || (!isAutheticated && isLoginPage)) {

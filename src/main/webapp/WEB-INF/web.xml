@@ -8,7 +8,7 @@
   <display-name>onlyFriends</display-name>
 
   <session-config>
-    <session-timeout>60</session-timeout>
+    <session-timeout>40</session-timeout>
     <cookie-config>
       <name>MY_JSESSIONID_</name>
     </cookie-config>

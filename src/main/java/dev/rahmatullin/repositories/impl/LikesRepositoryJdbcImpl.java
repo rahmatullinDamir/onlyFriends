@@ -1,6 +1,7 @@
-package dev.rahmatullin.repositories;
+package dev.rahmatullin.repositories.impl;
 
 import dev.rahmatullin.models.Likes;
+import dev.rahmatullin.repositories.LikesRepository;
 
 import java.sql.*;
 import java.util.List;

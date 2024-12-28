@@ -34,6 +34,18 @@
       <version>8.0.1</version>
       <scope>provided</scope>
     </dependency>
+<!--     https://mvnrepository.com/artifact/org.springframework.security/spring-security-core-->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+      <version>5.4.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+    </dependency>
 
   </dependencies>
   <build>

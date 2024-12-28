@@ -1,6 +1,7 @@
-package dev.rahmatullin.repositories;
+package dev.rahmatullin.repositories.impl;
 
 import dev.rahmatullin.models.Image;
+import dev.rahmatullin.repositories.ImageRepository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,0 +1,35 @@
+.content {
+    margin-left: 270px;
+    margin-top: 70px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-height: calc(100vh - 70px);
+}
+
+/* Карточки статистики */
+.stats {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.stat-card {
+    flex: 1;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.stat-card h3 {
+    color: #4a90e2;
+    margin-bottom: 10px;
+}
+
+.stat-card p {
+    font-size: 1.2rem;
+    font-weight: bold;
+}

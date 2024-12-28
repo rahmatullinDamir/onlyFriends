@@ -1,6 +1,7 @@
-package dev.rahmatullin.repositories;
+package dev.rahmatullin.repositories.impl;
 
 import dev.rahmatullin.models.Comment;
+import dev.rahmatullin.repositories.CommentRepository;
 
 import java.sql.*;
 import java.util.List;

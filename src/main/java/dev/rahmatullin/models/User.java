@@ -8,11 +8,13 @@ import lombok.*;
 @ToString
 public class User {
     private Long id;
-    private int age;
+    private Integer age;
     private String name;
     private String surname;
     private String password;
+    private String role;
     private Long avatarImageId;
+    private String email;
 }
 
 

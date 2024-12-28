@@ -1,6 +1,7 @@
-package dev.rahmatullin.repositories;
+package dev.rahmatullin.repositories.impl;
 
 import dev.rahmatullin.models.Post;
+import dev.rahmatullin.repositories.PostRepository;
 
 import java.sql.*;
 import java.util.List;

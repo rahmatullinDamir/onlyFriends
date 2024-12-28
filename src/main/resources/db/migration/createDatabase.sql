@@ -79,8 +79,11 @@ CREATE TABLE IF NOT EXISTS friends(
 ALTER TABLE likes
     ADD date timestamp DEFAULT CURRENT_TIMESTAMP;
 
--- alter add column
-ALTER TABLE user_profile ADD COLUMN is_admin;
+-- alter add column role
+ALTER TABLE user_profile ADD COLUMN role VARCHAR(20) SET DEFAULT 'USER';
 
+
+-- alter add column email
+ALTER TABLE user_profile ADD COLUMN email VARCHAR(50) ADD CONSTRAINT email_unique UNIQUE;
 
 

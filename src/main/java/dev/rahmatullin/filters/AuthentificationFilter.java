@@ -15,23 +15,28 @@ public class AuthentificationFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
 
-        Boolean isAutheticated = false;
-        Boolean sessionExists = session != null;
-        Boolean isLoginPage = request.getRequestURI().equals("/signIn");
-        Boolean isSignUpPage = request.getRequestURI().equals("/signUp");
-
-        if (sessionExists) {
-            isAutheticated = (Boolean) session.getAttribute("authenticated");
-            if (isAutheticated == null) {
-                isAutheticated = false;
-            }
-        }
-        if ((isAutheticated && !isLoginPage) || (!isAutheticated && isLoginPage) || (!isAutheticated && isSignUpPage)) {
+        String requestURI = request.getRequestURI();
+        if (requestURI.endsWith(".css") || requestURI.endsWith(".js") || requestURI.endsWith(".jpg") || requestURI.endsWith(".png")) {
             filterChain.doFilter(request, response);
-        } else if (isAutheticated && isLoginPage) {
-            response.sendRedirect("/feed");
         } else {
-            response.sendRedirect("/signIn");
+            Boolean isAutheticated = false;
+            Boolean sessionExists = session != null;
+            Boolean isLoginPage = request.getRequestURI().equals("/signIn");
+            Boolean isSignUpPage = request.getRequestURI().equals("/signUp");
+            if (sessionExists) {
+                isAutheticated = (Boolean) session.getAttribute("authenticated");
+                if (isAutheticated == null) {
+                    isAutheticated = false;
+                }
+            }
+
+            if ((isAutheticated && !isLoginPage) || (!isAutheticated && isLoginPage) || (!isAutheticated && isSignUpPage)) {
+                filterChain.doFilter(request, response);
+            } else if (isAutheticated && isLoginPage) {
+                response.sendRedirect("/feed");
+            } else {
+                response.sendRedirect("/signIn");
+            }
         }
     }
 }

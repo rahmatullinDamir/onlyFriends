@@ -43,7 +43,7 @@ public class SignInPageServlet extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/html/signIn.html").forward(request, response);
+        request.getRequestDispatcher("/static/html/signIn.html").forward(request, response);
     }
 
     @Override

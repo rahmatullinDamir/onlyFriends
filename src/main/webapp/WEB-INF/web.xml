@@ -14,13 +14,18 @@
     </cookie-config>
   </session-config>
 
-  <welcome-file-list>
-    <welcome-file>feed</welcome-file>
-  </welcome-file-list>
-
   <error-page>
     <error-code>403</error-code>
     <location>/Error403</location>
   </error-page>
+
+  <welcome-file-list>
+    <welcome-file>signIn</welcome-file>
+  </welcome-file-list>
+
+  <mime-mapping>
+    <extension>css</extension>
+    <mime-type>text/css</mime-type>
+  </mime-mapping>
 
 </web-app>

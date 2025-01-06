@@ -1,8 +1,6 @@
 package dev.rahmatullin.controllers;
 
-import dev.rahmatullin.repositories.PostRepository;
-import dev.rahmatullin.repositories.impl.PostRepositoryJdbcImpl;
-import dev.rahmatullin.services.impl.PostService;
+import dev.rahmatullin.services.impl.PostServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +18,7 @@ public class FeedPageServlet extends HttpServlet {
     private static final String DB_PASSWORD = "admin";
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/onlyFriendsDb";
 
-    private PostService postService;
+    private PostServiceImpl postService;
     @Override
     public void init() throws ServletException {
         Connection connection;
@@ -32,8 +30,8 @@ public class FeedPageServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException("Error connecting to the database", e);
         }
-        PostRepository postRepository = new PostRepositoryJdbcImpl(connection);
-        postService = new PostService(postRepository);
+//        PostRepository postRepository = new PostRepositoryJdbcImpl(connection);
+//        postService = new PostService(postRepository);
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

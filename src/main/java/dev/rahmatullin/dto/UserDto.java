@@ -10,6 +10,10 @@ public class UserDto {
     private Long id;
     private String name;
     private String role;
+    private Long avatarImageId;
+    private int age;
+    private String surname;
+    private String username;
 
 
     public boolean isAdmin() {

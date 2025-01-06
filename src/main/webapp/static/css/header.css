@@ -14,8 +14,32 @@
 
 .nav {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 10px; /* Сдвигаем поиск левее */
+}
+
+.search-input {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.search-button {
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px;
 }
 
 .home {
@@ -24,6 +48,7 @@
     color: #007bff;
     text-decoration: none;
     transition: color 0.3s ease;
+    margin-right: auto; /* Сдвигаем остальные элементы влево */
 }
 
 .home:hover {

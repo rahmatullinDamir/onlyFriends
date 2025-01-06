@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="../static/css/sidebar.css">
 <aside class="sidebar">
     <ul class="menu">
-        <li><a href="${pageContext.request.contextPath}/profile">Мой профиль</a></li>
+        <li><a href="${pageContext.request.contextPath}/profile/${pageContext.session.getAttribute("username")}">Мой профиль</a></li>
         <li><a href="${pageContext.request.contextPath}/friends">Мои друзья</a></li>
         <li><a href="${pageContext.request.contextPath}/feed">Новости</a></li>
         <c:choose>

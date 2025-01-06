@@ -27,6 +27,7 @@ public class SignUpServiceImpl implements SignUpService {
                 .age(form.getAge())
                 .password(passwordEncoder.encode(form.getPassword()))
                 .email(form.getEmail())
+                .username(form.getUsername())
                 .build();
         userRepository.save(user);
     }

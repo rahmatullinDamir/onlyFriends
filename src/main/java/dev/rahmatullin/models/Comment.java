@@ -14,4 +14,5 @@ public class Comment {
     private String text;
     private Long userId;
     private Date date;
+    private Long postId;
 }

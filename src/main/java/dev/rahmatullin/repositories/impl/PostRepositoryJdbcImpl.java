@@ -3,24 +3,27 @@ package dev.rahmatullin.repositories.impl;
 import dev.rahmatullin.models.Post;
 import dev.rahmatullin.repositories.PostRepository;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
 public class PostRepositoryJdbcImpl implements PostRepository {
     private Connection connection;
+    private DataSource dataSource;
 
     private static final String SQL_SELECT_ALL_FROM_POST = "SELECT * FROM post";
     private static final String SQL_INSERT_TO_POST = "INSERT INTO post (text, user_id, date) VALUES (?, ?, ?)";
     private static final String SQL_UPDATE_POST = "UPDATE post SET text = ?, user_id = ?, date = ? WHERE id = ?";
     private static final String SQL_DELETE_POST = "DELETE FROM post WHERE id = ?";
 
-    public PostRepositoryJdbcImpl(Connection connection) {
-        this.connection = connection;
+    public PostRepositoryJdbcImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     @Override
     public Optional<Post> findById(Long id) throws SQLException {
+        connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_FROM_POST + " WHERE id = ?");
         statement.setLong(1, id);
 
@@ -38,6 +41,7 @@ public class PostRepositoryJdbcImpl implements PostRepository {
 
     @Override
     public void save(Post entity) throws SQLException {
+        connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_INSERT_TO_POST);
 
         statement.setString(1, entity.getText());
@@ -56,6 +60,7 @@ public class PostRepositoryJdbcImpl implements PostRepository {
 
     @Override
     public void update(Post entity) throws SQLException {
+        connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_POST);
 
         statement.setString(1, entity.getText());
@@ -73,6 +78,7 @@ public class PostRepositoryJdbcImpl implements PostRepository {
 
     @Override
     public void removeById(Long id) throws SQLException {
+        connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_DELETE_POST);
         statement.setLong(1, id);
         statement.executeUpdate();

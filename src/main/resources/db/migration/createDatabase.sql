@@ -86,4 +86,13 @@ ALTER TABLE user_profile ADD COLUMN role VARCHAR(20) SET DEFAULT 'USER';
 -- alter add column email
 ALTER TABLE user_profile ADD COLUMN email VARCHAR(50) ADD CONSTRAINT email_unique UNIQUE;
 
+-- alter add column post_id to comment
 
+ALTER TABLE comment ADD COLUMN post_id INT;
+
+-- alter table add constraint that post_id is foreign key to table post
+ALTER TABLE comment ADD CONSTRAINT post_id FOREIGN KEY (post_id) REFERENCES post(id);
+-- alter table add username
+ALTER TABLE user_profile ADD COLUMN username varchar(50);
+--alter table set unique username
+ALTER TABLE user_profile ADD CONSTRAINT username_unique UNIQUE (username);

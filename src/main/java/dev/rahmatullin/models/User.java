@@ -15,6 +15,7 @@ public class User {
     private String role;
     private Long avatarImageId;
     private String email;
+    private String username;
 }
 
 

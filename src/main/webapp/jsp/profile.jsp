@@ -1,60 +1,47 @@
 <%--
   Created by IntelliJ IDEA.
   User: damirrakhmatullin
-  Date: 31.12.24
-  Time: 15:40
+  Date: 28.12.24
+  Time: 08:12
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Профиль пользователя</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/profile.css">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="../static/css/profile.css">
 </head>
 <body>
 <%@include file="header.jsp"%>
-<div class="container">
-    <%@include file="sidebar.jsp"%>
-    <main class="main-content">
-        <div class="profile">
-            <div class="profile-header">
-                <img src="avatar.jpg" alt="Аватар" class="avatar">
-                <div class="profile-info">
-                    <h1 class="name">Имя Фамилия</h1>
-                    <p class="status">Статус пользователя</p>
-                    <button class="add-friend-btn">Добавить в друзья</button>
-                </div>
-            </div>
-            <div class="profile-body">
-                <div class="left-column">
-                    <div class="about">
-                        <h2>О себе</h2>
-                        <p>Возраст: 25</p>
-                        <p>Город: Москва</p>
-                        <p>Интересы: Музыка, спорт, программирование</p>
-                    </div>
-                </div>
-                <div class="right-column">
-                    <div class="posts">
-                        <h2>Записи</h2>
-                        <div class="post">
-                            <p>Сегодня был отличный день! :)</p>
-                            <span class="date">31.12.2024</span>
-                        </div>
-                        <div class="post">
-                            <p>Учусь делать сайты.</p>
-                            <span class="date">30.12.2024</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<%@include file="sidebar.jsp"%>
+<main class="content">
+    <div class="profile-header">
+        <img src="https://via.placeholder.com/100" alt="User Avatar">
+        <div class="info">
+            <h1> <c:out value="${(name)}" default="guest" /> </h1>
+            <p>Возраст: <c:out value="${(age)}" default="none" /> </p>
         </div>
-    </main>
-</div>
+        <button class="edit-profile">Edit Profile</button>
+    </div>
+
+    <div class="posts">
+        <h2>User Posts</h2>
+        <div class="post">
+            <h3>Post Title 1</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non diam ut ipsum suscipit mollis.</p>
+        </div>
+        <div class="post">
+            <h3>Post Title 2</h3>
+            <p>Suspendisse potenti. Nullam id dolor nec risus vestibulum posuere in nec arcu.</p>
+        </div>
+        <div class="post">
+            <h3>Post Title 3</h3>
+            <p>Morbi tristique, massa nec fermentum aliquam, purus mi vehicula elit, eu fermentum magna lorem a leo.</p>
+        </div>
+    </div>
+</main>
 </body>
 <%@include file="footer.jsp"%>
 </html>

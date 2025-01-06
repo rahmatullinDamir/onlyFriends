@@ -18,25 +18,11 @@ import java.sql.SQLException;
 
 @WebServlet("/signUp")
 public class SignUpPageServlet extends HttpServlet {
-    private static final String DB_USERNAME = "postgres";
-    private static final String DB_PASSWORD = "admin";
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/onlyFriendsDb";
-
     private SignUpService signUpService;
 
     @Override
     public void init() throws ServletException {
-        Connection connection;
-        try {
-            Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("PostgreSQL Driver not found", e);
-        } catch (SQLException e) {
-            throw new RuntimeException("Error connecting to the database", e);
-        }
-        UserRepository userRepository = new UserRepositoryJdbcImpl(connection);
-        signUpService = new SignUpServiceImpl(userRepository);
+        signUpService = (SignUpService) getServletConfig().getServletContext().getAttribute("signUpService");
     }
 
     @Override
@@ -51,6 +37,7 @@ public class SignUpPageServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         Integer age = Integer.valueOf(request.getParameter("age"));
+        String username = request.getParameter("username");
 
         SignUpForm signUpForm = SignUpForm.builder()
                 .name(name)
@@ -58,6 +45,7 @@ public class SignUpPageServlet extends HttpServlet {
                 .email(email)
                 .age(age)
                 .password(password)
+                .username(username)
                 .build();
         try {
             signUpService.signUp(signUpForm);

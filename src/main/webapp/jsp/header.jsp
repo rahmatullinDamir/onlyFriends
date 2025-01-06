@@ -14,5 +14,9 @@
 <header class="header">
     <nav class="nav">
         <a class="home" href="${pageContext.request.contextPath}/">Only Friends</a>
+        <form class="search-form" action="${pageContext.request.contextPath}/search" method="get">
+            <input type="text" name="query" class="search-input" placeholder="Найти пользователя">
+            <button type="submit" class="search-button">🔍</button>
+        </form>
     </nav>
 </header>

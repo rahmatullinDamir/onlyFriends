@@ -30,6 +30,9 @@ public class SignInServiceImpl implements SignInService {
                         .id(user.getId())
                         .name(user.getName())
                         .role(user.getRole())
+                        .username(user.getUsername())
+                        .avatarImageId(user.getAvatarImageId())
+                        .age(user.getAge())
                         .build();
              }
          }

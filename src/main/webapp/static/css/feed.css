@@ -17,4 +17,139 @@
     min-height: calc(100vh - 120px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    overflow: hidden;
+}
+
+.post {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin-right: 10px;
+}
+
+.post-author {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.post-time {
+    font-size: 12px;
+    color: #888;
+}
+
+.post-content {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.post-image {
+    margin-top: 10px;
+    border-radius: 8px;
+    max-width: 100%;
+    height: auto;
+}
+
+.post-footer {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.like-container {
+    display: flex;
+    align-items: center;
+}
+
+.like-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #888;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease;
+}
+
+.like-button.liked {
+    color: red;
+}
+
+.like-button:hover {
+    text-decoration: none;
+}
+
+.like-count {
+    margin-left: 8px;
+    font-size: 16px;
+    color: #555;
+}
+
+.post-footer button {
+    background: none;
+    border: none;
+    color: #4a90e2;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.post-footer button:hover {
+    text-decoration: none;
+}
+
+.comments {
+    margin-top: 15px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.comment {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+.comment-form {
+    margin-top: 10px;
+}
+
+.comment-form textarea {
+    width: calc(100% - 15px);
+    height: 50px;
+    resize: none;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.comment-form button {
+    margin-top: 5px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.comment-form button:hover {
+    background-color: #0056b3;
 }

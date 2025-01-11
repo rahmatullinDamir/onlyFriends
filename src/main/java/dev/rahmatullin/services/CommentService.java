@@ -10,4 +10,5 @@ public interface CommentService {
     List<CommentDto> getCommentsByPostId(Long postId) throws SQLException;
 
     void saveCommentToDb(Comment comment) throws SQLException;
+    void deleteComment(Long id) throws SQLException;
 }

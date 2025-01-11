@@ -3,6 +3,7 @@ package dev.rahmatullin.repositories.impl;
 import dev.rahmatullin.models.Image;
 import dev.rahmatullin.repositories.ImageRepository;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,18 +13,20 @@ import java.util.Optional;
 
 public class ImageRepositoryJdbcImpl implements ImageRepository {
     private Connection connection;
+    private DataSource dataSource;
 
     private static final String SQL_SELECT_ALL_FROM_IMAGE = "SELECT * FROM image";
     private static final String SQL_INSERT_TO_IMAGE = "INSERT INTO image (name, url, extension) VALUES (?, ?, ?)";
     private static final String SQL_UPDATE_IMAGE = "UPDATE image SET name = ?, url = ?, extension = ? WHERE id = ?";
     private static final String SQL_DELETE_IMAGE = "DELETE FROM image WHERE id = ?";
 
-    public ImageRepositoryJdbcImpl(Connection connection) {
-        this.connection = connection;
+    public ImageRepositoryJdbcImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     @Override
     public Optional<Image> findById(Long id) throws SQLException {
+        connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_FROM_IMAGE + " WHERE id = ?");
         statement.setLong(1, id);
 
@@ -41,6 +44,7 @@ public class ImageRepositoryJdbcImpl implements ImageRepository {
 
     @Override
     public void save(Image entity) throws SQLException {
+        connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_INSERT_TO_IMAGE);
 
         statement.setString(1, entity.getName());
@@ -59,6 +63,7 @@ public class ImageRepositoryJdbcImpl implements ImageRepository {
 
     @Override
     public void update(Image entity) throws SQLException {
+        connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_IMAGE);
 
         statement.setString(1, entity.getName());
@@ -76,9 +81,28 @@ public class ImageRepositoryJdbcImpl implements ImageRepository {
 
     @Override
     public void removeById(Long id) throws SQLException {
+        connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_DELETE_IMAGE);
 
         statement.setLong(1, id);
         statement.executeUpdate();
+    }
+
+    @Override
+    public Optional<Image> getImageByName(String name) throws SQLException {
+        connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_FROM_IMAGE + " WHERE name = ?");
+        statement.setString(1, name);
+
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            return Optional.of(new Image(resultSet.getLong("id"),
+                    resultSet.getString("name"),
+                    resultSet.getString("url"),
+                    resultSet.getString("extension")));
+        }
+
+        return Optional.empty();
     }
 }

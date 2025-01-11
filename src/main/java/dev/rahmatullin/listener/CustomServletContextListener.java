@@ -1,15 +1,9 @@
 package dev.rahmatullin.listener;
 
 import dev.rahmatullin.repositories.CommentRepository;
-import dev.rahmatullin.repositories.impl.CommentRepositoryJdbcImpl;
-import dev.rahmatullin.repositories.impl.UserRepositoryJdbcImpl;
-import dev.rahmatullin.services.SignInService;
-import dev.rahmatullin.services.SignUpService;
-import dev.rahmatullin.services.UserService;
-import dev.rahmatullin.services.impl.CommentServiceImpl;
-import dev.rahmatullin.services.impl.SignInServiceImpl;
-import dev.rahmatullin.services.impl.SignUpServiceImpl;
-import dev.rahmatullin.services.impl.UserServiceImpl;
+import dev.rahmatullin.repositories.impl.*;
+import dev.rahmatullin.services.*;
+import dev.rahmatullin.services.impl.*;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.servlet.ServletContext;
@@ -41,6 +35,23 @@ public class CustomServletContextListener implements ServletContextListener {
 
         UserService userServiceImpl = new UserServiceImpl(userRepositoryJdbc);
 
+        ImageRepositoryJdbcImpl imageRepositoryJdbc = new ImageRepositoryJdbcImpl(dataSource);
+        ImageServiceImpl imageServiceImpl = new ImageServiceImpl(imageRepositoryJdbc);
+
+        PostRepositoryJdbcImpl postRepositoryJdbc = new PostRepositoryJdbcImpl(dataSource);
+        PostServiceImpl postServiceImpl = new PostServiceImpl(postRepositoryJdbc);
+
+        FriendsRepositoryJdbcImpl friendsRepositoryJdbc = new FriendsRepositoryJdbcImpl(dataSource);
+        FriendServiceImpl friendServiceImpl = new FriendServiceImpl(friendsRepositoryJdbc, userRepositoryJdbc);
+
+        LikesRepositoryJdbcImpl likesRepositoryJdbc = new LikesRepositoryJdbcImpl(dataSource);
+        LikesServiceImpl likesServiceImpl = new LikesServiceImpl(likesRepositoryJdbc);
+
+
+        servletContext.setAttribute("likesService", likesServiceImpl);
+        servletContext.setAttribute("friendService", friendServiceImpl);
+        servletContext.setAttribute("postService", postServiceImpl);
+        servletContext.setAttribute("imageService", imageServiceImpl);
         servletContext.setAttribute("userService", userServiceImpl);
         servletContext.setAttribute("commentService", commentServiceImpl);
         servletContext.setAttribute("signUpService", signUpServiceImpl);

@@ -46,7 +46,7 @@ public class SignInPageServlet extends HttpServlet {
                 httpSession.setAttribute("username", user.getUsername());
                 httpSession.setAttribute("isAdmin", user.isAdmin());
 
-                response.sendRedirect("/feed");
+                response.sendRedirect("/profile/" + user.getUsername());
             }
             else {
                 response.sendRedirect("/signIn");

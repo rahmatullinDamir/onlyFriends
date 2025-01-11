@@ -8,6 +8,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Builder
+@ToString
 
 public class Comment {
     private Long id;
@@ -15,4 +16,5 @@ public class Comment {
     private Long userId;
     private Date date;
     private Long postId;
+    private String author;
 }

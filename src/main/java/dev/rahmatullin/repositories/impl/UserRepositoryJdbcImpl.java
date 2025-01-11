@@ -1,13 +1,12 @@
 package dev.rahmatullin.repositories.impl;
 
+import dev.rahmatullin.dto.UserDto;
 import dev.rahmatullin.models.User;
 import dev.rahmatullin.repositories.UserRepository;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,12 +15,19 @@ public class UserRepositoryJdbcImpl implements UserRepository {
 
     private DataSource dataSource;
     private static final String SQL_SELECT_ALL_FROM_USER_PROFILE = "SELECT * FROM user_profile";
+
     private static final String SQL_INSERT_TO_USER_PROFILE = "INSERT INTO user_profile (name, surname, age," +
             " password, email, username) VALUES (?, ?, ?, ?, ?, ?)";
 
     private static final String SQL_UPDATE_USER_PROFILE = "UPDATE user_profile SET name = ?, surname = ?," +
-            " age = ?, avatar_image_id = ?, password = ?, username = ? WHERE id = ?";
+            " age = ?, avatar_image_id = ? WHERE id = ?";
+    private static final String SQL_UPDATE_USER_PROFILE_WITHOUT_IMAGE = "UPDATE user_profile SET name = ?, surname = ?," +
+            " age = ? WHERE id = ?";
     private static final String SQL_DELETE_USER_PROFILE = "DELETE FROM user_profile WHERE id = ?";
+    private static final String SQL_ADD_FRIEND = "INSERT INTO friends (user_id, friend_id, status) VALUES (?, ?, ?)";
+
+    private static final String SQL_SELECT_ALL_FROM_USER_PROFILE_WHERE_USERNAME = "SELECT * FROM user_profile WHERE username = ?";
+    private static final String SQL_SELECT_ALL_FROM_USER_PROFILE_WHERE_EMAIl = "SELECT * FROM user_profile WHERE email = ?";
 
     public UserRepositoryJdbcImpl(DataSource dataSource)  {
         this.dataSource = dataSource;
@@ -69,6 +75,17 @@ public class UserRepositoryJdbcImpl implements UserRepository {
     }
 
     @Override
+    public void updateWithoutImage(User entity) throws SQLException {
+        connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USER_PROFILE_WITHOUT_IMAGE);
+
+        statement.setString(1, entity.getName());
+        statement.setString(2, entity.getSurname());
+        statement.setInt(3, entity.getAge());
+        statement.setLong(4, entity.getId());
+        statement.executeUpdate();
+    }
+    @Override
     public void update(User entity) throws SQLException {
         connection = dataSource.getConnection();
         PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_USER_PROFILE);
@@ -77,9 +94,8 @@ public class UserRepositoryJdbcImpl implements UserRepository {
         statement.setString(2, entity.getSurname());
         statement.setInt(3, entity.getAge());
         statement.setLong(4, entity.getAvatarImageId());
-        statement.setString(5, entity.getPassword());;
-        statement.setLong(6, entity.getId());
-        statement.setString(7, entity.getUsername());
+        statement.setLong(5, entity.getId());
+        statement.executeUpdate();
     }
 
     @Override
@@ -93,6 +109,26 @@ public class UserRepositoryJdbcImpl implements UserRepository {
         PreparedStatement statement = connection.prepareStatement(SQL_DELETE_USER_PROFILE);
         statement.setLong(1, id);
         statement.executeUpdate();
+    }
+
+    @Override
+    public List<UserDto> getAllUsers() throws SQLException {
+        connection = dataSource.getConnection();
+        List<UserDto> users = new ArrayList<>();
+        Statement statement = connection.createStatement();
+
+        ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_FROM_USER_PROFILE);
+
+        while(resultSet.next()) {
+            users.add(UserDto.builder()
+                            .id(resultSet.getLong("id"))
+                            .age( resultSet.getInt("age"))
+                            .name(resultSet.getString("name"))
+                            .surname(resultSet.getString("surname"))
+                            .username( resultSet.getString("username"))
+                    .build());
+        }
+        return users;
     }
 
     @Override
@@ -133,5 +169,50 @@ public class UserRepositoryJdbcImpl implements UserRepository {
         }
 
         return Optional.empty();
+    }
+
+    @Override
+    public boolean addFriend(Long userId, Long friendId, String status) throws SQLException {
+        connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SQL_ADD_FRIEND);
+        statement.setLong(1, userId);
+        statement.setLong(2, friendId);
+        statement.setString(3, status);
+
+
+
+        return statement.executeUpdate() > 0;
+    }
+
+    @Override
+    public boolean isEmailTaken(String email) throws SQLException {
+        connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_FROM_USER_PROFILE_WHERE_EMAIl);
+        statement.setString(1, email);
+        try (ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                return resultSet.getLong(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+
+    }
+
+    @Override
+    public boolean isUsernameTaken(String username) throws SQLException {
+        connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_FROM_USER_PROFILE_WHERE_USERNAME);
+        statement.setString(1, username);
+        try (ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                return resultSet.getLong(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+
     }
 }

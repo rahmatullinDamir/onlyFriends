@@ -13,7 +13,6 @@
     <ul class="menu">
         <li><a href="${pageContext.request.contextPath}/profile/${pageContext.session.getAttribute("username")}">Мой профиль</a></li>
         <li><a href="${pageContext.request.contextPath}/friends">Мои друзья</a></li>
-        <li><a href="${pageContext.request.contextPath}/feed">Новости</a></li>
         <c:choose>
             <c:when test="${pageContext.session.getAttribute('isAdmin')}">
                <li><a href="${pageContext.request.contextPath}/admin">Админ-Панель</a></li>

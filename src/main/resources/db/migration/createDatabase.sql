@@ -96,3 +96,13 @@ ALTER TABLE comment ADD CONSTRAINT post_id FOREIGN KEY (post_id) REFERENCES post
 ALTER TABLE user_profile ADD COLUMN username varchar(50);
 --alter table set unique username
 ALTER TABLE user_profile ADD CONSTRAINT username_unique UNIQUE (username);
+
+--alter table add column title to post
+ALTER TABLE post ADD COLUMN title varchar(50);
+
+--alter table add an id to friends
+ALTER TABLE friends ADD COLUMN id SERIAL;
+
+--alter table friends id is a primary key
+ALTER TABLE friends ADD PRIMARY KEY (id);
+

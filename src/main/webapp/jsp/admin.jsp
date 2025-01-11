@@ -9,32 +9,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Panel</title>
+    <title>Панель Администратора</title>
         <link rel="stylesheet" href="../static/css/admin.css">
 </head>
 <body>
 <%@include file="header.jsp"%>
 <%@include file="sidebar.jsp"%>
 <main class="content">
-    <section class="dashboard">
-        <h2>Добро пожаловать в админ-панель</h2>
-        <p>Здесь вы можете управлять системой.</p>
-        <div class="stats">
-            <div class="stat-card">
-                <h3>Пользователи</h3>
-                <p>Всего: 1500</p>
-            </div>
-            <div class="stat-card">
-                <h3>Посты</h3>
-                <p>Всего: 320</p>
-            </div>
-            <div class="stat-card">
-                <h3>Комментарии</h3>
-                <p>Всего: 1050</p>
-            </div>
-        </div>
-    </section>
+    <h1>Администраторская панель</h1>
+
+    <table border="1">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя пользователя</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="user" items="${users}">
+            <tr>
+                <td>${user.id}</td>
+                <td>${user.username}</td>
+                <td>${user.name}</td>
+                <td>${user.surname}</td>
+                <td>
+                    <button onclick="deleteUser(${user.id})">Заблокировать</button>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 </main>
+<script>
+    async function deleteUser(userId) {
+        if (!confirm("Вы уверены, что хотите заблокировать этого пользователя?")) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`/admin/delete-user`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId }),
+            });
+
+            if (response.ok) {
+                alert("Пользователь успешно заблокирован");
+                location.reload();
+            } else {
+                alert("Ошибка при блокировке пользователя");
+            }
+        } catch (error) {
+            console.error("Ошибка:", error);
+            alert("Произошла ошибка при блокировке пользователя");
+        }
+    }
+</script>
 </body>
 <%@include file="footer.jsp"%>
 </html>

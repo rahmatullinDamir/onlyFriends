@@ -2,6 +2,14 @@ package dev.rahmatullin.repositories;
 
 import dev.rahmatullin.models.Likes;
 
-public interface LikesRepository extends CrudRepository<Likes>{
+import java.sql.SQLException;
 
+public interface LikesRepository extends CrudRepository<Likes>{
+    Long getLikeIdByPostAndUser(Long postId, Long userId) throws SQLException;
+    void addLike(Long postId, Long userId) throws SQLException;
+    void removeLike(Long likeId, Long postId, Long userId) throws SQLException;
+
+    Long getLikeCount(Long postId) throws SQLException;
+
+    boolean isPostLikedByUser(Long postId, Long userId) throws SQLException;
 }

@@ -13,8 +13,8 @@ public class CommentRepositoryJdbcImpl implements CommentRepository {
     private DataSource dataSource;
     private Connection connection;
     private static final String SQL_SELECT_ALL_FROM_COMMENT = "SELECT * FROM comment";
-    private static final String SQL_INSERT_TO_COMMENT = "INSERT INTO comment (text, user_id, date, post_id) VALUES (?, ?, ?, ?, ?)";
-    private static final String SQL_UPDATE_COMMENT = "UPDATE comment SET text = ?, user_id = ?, date = ? WHERE id = ?";
+    private static final String SQL_INSERT_TO_COMMENT = "INSERT INTO comment (text, user_id, post_id, author) VALUES (?, ?, ?, ?)";
+    private static final String SQL_UPDATE_COMMENT = "UPDATE comment SET text = ?, user_id = ?, post_id = ?, author = ? WHERE id = ?";
     private static final String SQL_DELETE_COMMENT = "DELETE FROM comment WHERE id = ?";
     private static final String SQL_SELECT_AlL_COMMENTS_WHERE_POST_ID = "SELECT * FROM comment WHERE post_id = ?";
 
@@ -35,7 +35,9 @@ public class CommentRepositoryJdbcImpl implements CommentRepository {
                     resultSet.getString("text"),
                     resultSet.getLong("user_id"),
                     resultSet.getDate("date"),
-                    resultSet.getLong("post_id")));
+                    resultSet.getLong("post_id"),
+                    resultSet.getString("author")
+            ));
         }
 
         return Optional.empty();
@@ -48,7 +50,8 @@ public class CommentRepositoryJdbcImpl implements CommentRepository {
 
         statement.setString(1, entity.getText());
         statement.setLong(2, entity.getUserId());
-        statement.setDate(3, Date.valueOf(String.valueOf(entity.getDate())));
+        statement.setLong(3, entity.getPostId());
+        statement.setString(4, entity.getAuthor());
 
         statement.executeUpdate();
     }
@@ -67,9 +70,8 @@ public class CommentRepositoryJdbcImpl implements CommentRepository {
 
         statement.setString(1, entity.getText());
         statement.setLong(2, entity.getUserId());
-        statement.setDate(3, Date.valueOf(String.valueOf(entity.getDate())));
-        statement.setLong(4, entity.getId());
-        statement.setLong(4, entity.getPostId());
+        statement.setLong(3, entity.getPostId());
+        statement.setString(4, entity.getAuthor());
 
         statement.executeUpdate();
     }
@@ -93,7 +95,8 @@ public class CommentRepositoryJdbcImpl implements CommentRepository {
                             resultSet.getString("text"),
                             resultSet.getLong("user_id"),
                             resultSet.getDate("date"),
-                            resultSet.getLong("post_id")
+                            resultSet.getLong("post_id"),
+                            resultSet.getString("author")
                     )
             );
         }
